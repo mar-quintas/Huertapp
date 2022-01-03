@@ -1,0 +1,84 @@
+
+
+.color
+{
+    color: #fff;
+    background-color: #86A17C;
+    border-color: #86A17C;
+}
+
+.nav-colors
+{
+    background-color: #BFBCB2 ;
+}
+
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* Scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* Center contents */
+    text-align: center;
+
+    background-color: #EBE9DF;
+    background-image: url(https://cdn.discordapp.com/attachments/900024591907430420/900146441706696734/image0.png);
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-position: center;
+    min-height: 775px;
+}
+
+main>div {
+    opacity: 0.95;
+}
+
+main img
+{
+    /* Constrain images on small screens */
+    max-width: 100%;
+}
+
+.draggable{
+    width: 80px;
+    /*height: 200px ;*/
+}
+
+#container{
+  background-color: gray;
+  width:500px;
+  height:400px;
+}
+
+.dndimg{
+    cursor: grab;
+
+}
+
+.separator {
+    margin-top:8px;
+    border-top:1px solid #666;
+    padding:0;
+    font-size: 1pt;
+    background-color: #000000
+}
+
+.compatible {
+    background-color: #EBE9DF;
+}
+
+.myrow>div { margin : auto}
+
+.label-light {
+    position: absolute;
+    left: 3px;
+    top: -10px;
+}

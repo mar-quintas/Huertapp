@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Garden
+{% endblock %}
+
+{% block main %}
+        <div class='row'>
+            <div class='col'>
+                <div id='container' class='droppable'>
+                </div>
+            </div>
+            <div class='col-md-3'>
+                <div id='source'>
+                    {% for vegetable in vegetables %}
+                    <div class='draggable'>
+                        {% if not vegetable.image %}
+                        <img class='.dndimg img-thumbnail' width="80" src="https://cdn.discordapp.com/attachments/742856773203001474/923531454976249946/Ilustracion_sin_titulo.png"/>
+                        {% endif %}
+                        {% if vegetable.image %}
+                        <img class='.dndimg img-thumbnail' src="{{vegetable.image}}"  width="80"/>
+                        {% endif %}
+                        <div>{{vegetable.name}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    <script>
+    $('.draggable').draggable({
+    	handle: "img",
+        revert: "invalid",
+        stack: ".draggable",
+        helper: 'clone'
+    });
+
+    $('.droppable').droppable({
+        accept: ".draggable",
+        drop: function(event, ui) {
+        var droppable = $(this);
+        var draggable = ui.draggable;
+
+        // Move draggable into droppable
+        if(!$('.droppable').has(ui.draggable).length){ // the draggable is not already inside this container
+            var drag = draggable.clone().draggable({
+                handle: "img",
+                containment: "parent"
+            });
+            drag.appendTo(droppable);
+        }
+      }
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Vegetables
+{% endblock %}
+
+{% block main %}
+    <div class='container-fluid text-center'>
+        {% if vegetables %}
+            <h2>My Vegetables</h2>
+                <br>
+                    <!--Loops through the table users_vegetables searching the current user's vegetables-->
+
+                    <div class='accordion' id='accordionExample'>
+
+                    {% for vegetable in vegetables %}
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <div class='row no-gutters myrow'>
+
+                                {% if vegetable.image %}
+                                <div class="col-md-1">
+                                  <img src="{{vegetable.image}}" class=".dndimg img-thumbnail" width="60" alt="{{vegetable.name}}">
+                                </div>
+                                {% endif %}
+                                {% if not vegetable.image %}
+                                <div class="col-md-1">
+                                  <img src="https://cdn.discordapp.com/attachments/742856773203001474/923531454976249946/Ilustracion_sin_titulo.png" class=".dndimg img-thumbnail" width="60" alt="{{vegetable.name}}">
+                                </div>
+                                {% endif %}
+
+                               <!--These are the options always shown -->
+                                <div class='col-md'>
+                                  <h5 class="mb-0">
+                                      {{vegetable.name}}
+                                  </h5>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#collapse_sow{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-pagelines" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#collapse_harvest{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#collapse_space{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-arrows" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#collapse_compatible{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#cooking_hints{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-1' type="button" data-toggle="collapse" data-target="#cooking_preserv{{vegetable.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                  <i class="fa fa-archive" aria-hidden="true"></i>
+                                </div>
+
+                                <div class='col-md-2'>
+                                  <form class='date_form' action='/' method='post'>
+                                    <input type='hidden' name='id' value='{{vegetable.id}}'>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <input name='date' type="text" value='{{vegetable.sow_date if vegetable.sow_date else "Select date"}}' class="form-control" autocomplete='off' placeholder='Select date'>
+                                        <span class="badge badge-light label-light">Sowing date</span>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                  </form>
+                                </div>
+
+                                <div class='col-md'>
+                                  <form class='operation' action='/remove' method="post">
+                                     <input type='hidden' name='id' value='{{vegetable.id}}'>
+                                     <button class='btn op_but color btn-sm' type="submit">Remove</button>
+                                  </form>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <!--Here goes the text to be shown-->
+                            <div id="collapse_sow{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                Sowing recomendations:
+                                  {{vegetable.sowInstructions}}
+                              </div>
+                            </div>
+
+                            <div id="collapse_harvest{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                  {{vegetable.harvestInstructions}}
+                              </div>
+                            </div>
+
+                            <div id="collapse_space{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                  {{vegetable.spaceInstructions}}
+                              </div>
+                            </div>
+
+                            <div id="collapse_compatible{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class='card-body'>
+                                  {{ "Compatible with: " + vegetable.compatiblePlants if vegetable.compatiblePlants else "Best grown in separate bed" }}
+                              </div>
+                            </div>
+
+                            <div id="cooking_hints{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                  Culinary Hints:
+                                  {{vegetable.culinaryHints}}
+                              </div>
+                            </div>
+
+                            <div id="cooking_preserv{{vegetable.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                Culinary Preservation:
+                                {{ vegetable.culinaryPreservation if vegetable.culinaryPreservation else "No advice on this yet! Sorry!" }}
+                              </div>
+                            </div>
+
+                          </div>
+                    {% endfor %}
+                    </div>
+        {% endif %}
+        {% if not vegetables %}
+            <h2>You don't have any vegetables yet</h2>
+                <a href='/vegetables_catalog' class="btn color">Choose some</a>
+        {% endif %}
+    </div>
+    <script>
+      $('.datepicker').datepicker();
+
+      $('input').change(function(){
+        $(this).closest('.date_form').submit();
+      });
+    </script>
+{% endblock %}

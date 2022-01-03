@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Plot
+{% endblock %}
+
+{% block main %}
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <select id='prc1' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc2' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc3' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id='prc4' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc5' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        <div class="dropdown-divider"></div>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc6' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id='prc7' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc8' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select id='prc9' class="form-control">
+                        <option selected> Select Vegetable</option>
+                        {% for vegetable in vegetables %}
+                        <option value='{{vegetable.id}}' >{{vegetable.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <script>
+        $(function(){
+
+            // To add the compatible vegetals to the options
+            $.fn.replaceOptions = function(options) {
+                var self, $option;
+                self = this;
+
+                self.find(".separator").remove()
+                console.log("removed")
+                self.append("<optgroup class='separator' label='Compatible Plants'></optgoup>");
+
+                $.each(JSON.parse(options), function(index, option) {
+                  $option = $("<option></option>")
+                    .attr("value", option.id)
+                    .text(option.name)
+                    .attr("class", "compatible")
+
+                  self.find( ".separator" ).append($option);
+                });
+            };
+
+            // When a select is modified send the id of the vegetable via GET to get the compatible plants
+            $("select").change(function(){
+                $.ajax({url:"/compatible", data:{id:$(this).val()}, success: function(options){
+                    console.log(options)
+                    $(".form-control").replaceOptions(options)
+
+                }});
+            });
+
+        });
+    </script>
+{% endblock %}

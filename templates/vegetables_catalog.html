@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vegetables Catalog
+{% endblock %}
+
+{% block main %}
+  <h2>Vegetables Catalog</h2>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3">
+    {% for vegetable in vegetables%}
+
+    <div class="col mb-4">
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          {% if vegetable.image %}
+          <div class="col-md-4">
+            <img src="{{vegetable.image}}" class="card-img" alt="{{vegetable.name}}">
+          </div>
+          {% endif %}
+          {% if not vegetable.image %}
+          <div class="col-md-4">
+            <img src="https://cdn.discordapp.com/attachments/742856773203001474/923531454976249946/Ilustracion_sin_titulo.png" class="card-img" alt="{{vegetable.name}}">
+          </div>
+          {% endif %}
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{vegetable.name}}</h5>
+              <p class="card-text">{{vegetable.sowInstructions}}</p>
+              {% if vegetable.compatiblePlants%}
+              <p class="card-text"><small class="text-muted">Compatible plants: {{vegetable.compatiblePlants}}</small></p>
+              {% endif %}
+              <form class='operation' action='/add' method="post">
+                  <input type='hidden' name='id' value='{{vegetable.id}}'>
+                  <button class='btn color op_but' type="submit">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+  <a href='/' class="btn color btn-lg">Ready!</a>
+{% endblock %}
+
