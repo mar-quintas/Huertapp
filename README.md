@@ -1,7 +1,8 @@
 # Huertapp
 A web-app to plan a vegetable garden.
 
-#### Video Demo:  [https://youtu.be/yz1h42X94P0]
+#### Video Demo on [Youtube](https://youtu.be/yz1h42X94P0)
+### Live version at [Herouku](https://myhuerta-app.herokuapp.com/) - With bugs 
 
 ### Description:
 Huertapp is a web-app using python, flask, sqlite3 and jquery mostly.
